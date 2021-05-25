@@ -18,13 +18,18 @@ const refs = {
 
 refs.input.addEventListener('input', debounce(onInputSearch, 500));
 
+let inputValue = '';
+
 function onInputSearch(evt) {
-    const inputValue = evt.target.value;
+    inputValue = evt.target.value.trim();
     refs.countryCard.innerHTML = '';
 
-    return fetchCountries(inputValue)
+    if (!inputValue) {
+        return;
+    } else {fetchCountries(inputValue)
         .then(updateNameNotification)
-        .catch(error => console.log(error));
+        .catch(error => console.log(error));}
+    
 }
 
 function addCountriesList(countries) {
